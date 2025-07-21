@@ -7,14 +7,14 @@ logoutButton.action = () => {
     ApiConnector.logout(result => {
         if(result){
             location.reload();
-        }
-    })
+        };
+    });
 };
 
 ApiConnector.current(({ success, data }) => {
     if(success) {
         ProfileWidget.showProfile(data);
-    }
+    };
 });
 
 const updateRatesBoard = () => {
@@ -22,9 +22,9 @@ const updateRatesBoard = () => {
         if (success){
             ratesBoard.clearTable();
             ratesBoard.fillTable(data)
-        }
-    })
-}
+        };
+    });
+};
 
 updateRatesBoard();
 setInterval(updateRatesBoard,60000);
@@ -36,9 +36,9 @@ moneyManager.addMoneyCallback = ({ currency, amount }) => {
             moneyManager.setMessage(success, 'Баланс успешно пополнен!😊');
         } else {
             moneyManager.setMessage(success, data || 'Ошибка! Что-то пошло не так.😥');
-        }
-    })
-}
+        };
+    });
+};
 
 moneyManager.conversionMoneyCallback = ({ fromCurrency, targetCurrency, fromAmount }) => {
     ApiConnector.convertMoney({ fromCurrency, targetCurrency, fromAmount }, ({ success, data }) => {
@@ -47,9 +47,9 @@ moneyManager.conversionMoneyCallback = ({ fromCurrency, targetCurrency, fromAmou
             moneyManager.setMessage(success, 'Конвертация выполнена успешно!😊');
         } else {
             moneyManager.setMessage(success, data || 'Ошибка! Что-то пошло не так.😥');
-        } 
-    })
-}
+        }; 
+    });
+};
 
 moneyManager.sendMoneyCallback = ({ to, currency, amount }) => {
     ApiConnector.transferMoney({ to, currency, amount }, ({ success, data }) => {
@@ -58,16 +58,16 @@ moneyManager.sendMoneyCallback = ({ to, currency, amount }) => {
             moneyManager.setMessage(success, 'Перевод пользователю выполнен успешно!😊');
         } else {
             moneyManager.setMessage(success, data || 'Ошибка! Что-то пошло не так.😥');
-        }
-    })
-}
+        };
+    });
+};
 
 ApiConnector.getFavorites(({ success, data }) => {
     if(success){
         favoritesWidget.clearTable();
         favoritesWidget.fillTable(data);
         moneyManager.updateUsersList(data);
-    }
+    };
 });
  
 favoritesWidget.addUserCallback = ({ id, name }) => {
@@ -79,8 +79,8 @@ favoritesWidget.addUserCallback = ({ id, name }) => {
             favoritesWidget.setMessage(success, 'Пользователь добавлен в Избранное!😊');
         } else {
             favoritesWidget.setMessage(success, data || 'Ошибка! Что-то пошло не так.😥');
-        }
-    })
+        };
+    });
 };
 
 favoritesWidget.removeUserCallback = (id, callback) => {
@@ -92,6 +92,6 @@ favoritesWidget.removeUserCallback = (id, callback) => {
             favoritesWidget.setMessage(success, 'Пользователь был удалён из Избранного!😊');
         } else {
             favoritesWidget.setMessage(success, data || 'Ошибка! Что-то пошло не так.😥');
-        }
+        };
     });
 };
